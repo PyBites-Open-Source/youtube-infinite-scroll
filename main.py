@@ -20,7 +20,7 @@ TR_CONTENT = """
 TR_INNER_HTML = """
 <td>
   <h2 class="mui--text-subhead">{idx}. {title}</h2>
-  <p>{description} (published: {published}</p>
+  <p>{description} (published: {published})</p>
 </td>
 <td>
   <a href="{link}" target="_blank">
