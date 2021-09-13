@@ -46,3 +46,5 @@ Lastly run the app:
 ```
 make run
 ```
+
+Navigate to [localhost:8000](http://localhost:8000/) - enjoy! :)
