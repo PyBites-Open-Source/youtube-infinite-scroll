@@ -5,4 +5,7 @@ flake8
 mypy
 pre-commit
 pytest
+pytest-vcr
+pytest-cov
 types-python-dateutil
+types-requests

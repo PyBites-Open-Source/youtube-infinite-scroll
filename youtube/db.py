@@ -54,41 +54,41 @@ def get_videos_from_channel(channel: str = YT_CHANNEL) -> list[dict]:
     return videos
 
 
-def insert_youtube_videos(videos: list[dict]) -> None:
+def insert_youtube_videos(session: Session, videos: list[dict]) -> None:
     num_inserted = 0
-    with Session(engine) as session:
-        for video in videos:
-            video_id = video["id"]["videoId"]
-            title = video["snippet"]["title"]
-            description = video["snippet"]["description"]
-            thumb = video["snippet"]["thumbnails"]["medium"]["url"]
-            published = video["snippet"]["publishTime"]
+    for video in videos:
+        video_id = video["id"]["videoId"]
+        title = video["snippet"]["title"]
+        description = video["snippet"]["description"]
+        thumb = video["snippet"]["thumbnails"]["medium"]["url"]
+        published = video["snippet"]["publishTime"]
 
-            statement = select(YouTube).where(YouTube.video_id == video_id)
-            results = session.exec(statement)
-            if results.first() is not None:
-                continue
-
-            youtube = YouTube(
-                video_id=video_id,
-                title=title,
-                description=description,
-                thumb=thumb,
-                published=parse(published),
-            )
-
-            session.add(youtube)
-            num_inserted += 1
-
-        session.commit()
-
-        statement = select(YouTube)
+        statement = select(YouTube).where(YouTube.video_id == video_id)
         results = session.exec(statement)
-        total_records = len(results.all())
-        print(f"Total records: {total_records} (newly inserted: {num_inserted})")
+        if results.first() is not None:
+            continue
+
+        youtube = YouTube(
+            video_id=video_id,
+            title=title,
+            description=description,
+            thumb=thumb,
+            published=parse(published),
+        )
+
+        session.add(youtube)
+        num_inserted += 1
+
+    session.commit()
+
+    statement = select(YouTube)
+    results = session.exec(statement)
+    total_records = len(results.all())
+    print(f"Total records: {total_records} (newly inserted: {num_inserted})")
 
 
 if __name__ == "__main__":
     create_db_and_tables()
     videos = get_videos_from_channel()
-    insert_youtube_videos(videos)
+    with Session(engine) as session:
+        insert_youtube_videos(session, videos)

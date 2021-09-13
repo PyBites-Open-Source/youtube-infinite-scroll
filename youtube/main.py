@@ -5,7 +5,7 @@ from fastapi.templating import Jinja2Templates
 
 from sqlmodel import select, Session
 
-from youtube.models import YouTube, YouTubeRead
+from youtube.models import YouTube
 from youtube.db import get_session
 
 app = FastAPI()
@@ -30,7 +30,7 @@ TR_INNER_HTML = """
 """
 
 
-def _get_video_content(videos: list[YouTubeRead]) -> list[str]:
+def _get_video_content(videos: list[YouTube]) -> list[str]:
     content = []
     for video in videos:
         content.append(
