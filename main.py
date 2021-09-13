@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Query
+from fastapi import Depends, FastAPI, Request, Query
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from sqlmodel import select, Session
 
 from youtube.models import YouTube, YouTubeRead
-from youtube.db import engine
+from youtube.db import get_session
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -47,9 +47,8 @@ def _get_video_content(videos: list[YouTubeRead]) -> list[str]:
 
 
 @app.get("/", response_class=HTMLResponse)
-def home(request: Request):
-    with Session(engine) as session:
-        videos = session.exec(select(YouTube).offset(0).limit(10)).all()
+def home(*, session: Session = Depends(get_session), request: Request):
+    videos = session.exec(select(YouTube).offset(0).limit(10)).all()
     content = _get_video_content(videos)
     tr_with_next_row_get = TR_CONTENT.format(domain=DOMAIN, offset=10, limit=10).strip()
     context = {
@@ -61,17 +60,20 @@ def home(request: Request):
 
 
 @app.get("/videos/")
-def read_videos(offset: int = 0, limit: int = Query(default=100, lte=100)):
+def read_videos(
+    *,
+    session: Session = Depends(get_session),
+    offset: int = 0,
+    limit: int = Query(default=100, lte=100),
+):
     content = ""
-    with Session(engine) as session:
-        videos = session.exec(select(YouTube).offset(offset).limit(limit)).all()
-        if videos:
-            content = [f"<tr>{tds}</tr>" for tds in _get_video_content(videos)]
-            # give the last tr element the htmx to enable infinite scroll
-            content[-1] = content[-1].replace(
-                "<tr>",
-                TR_CONTENT.format(domain=DOMAIN, offset=offset + limit, limit=limit),
-            )
-            content = "\n".join(content)
+    videos = session.exec(select(YouTube).offset(offset).limit(limit)).all()
+    if videos:
+        content = [f"<tr>{tds}</tr>" for tds in _get_video_content(videos)]
+        # give the last tr element the htmx to enable infinite scroll
+        content[-1] = content[-1].replace(
+            "<tr>", TR_CONTENT.format(domain=DOMAIN, offset=offset + limit, limit=limit)
+        )
+        content = "\n".join(content)
 
-        return HTMLResponse(content=content, status_code=200)
+    return HTMLResponse(content=content, status_code=200)
