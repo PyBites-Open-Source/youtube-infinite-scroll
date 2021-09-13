@@ -25,7 +25,7 @@ cp .env-example .env
 
 Populate it with the following environment variables:
 
-- `YT_CHANNEL`: the YouTube channel to use this on, to try it out with PyBites you can use `UCBn-uKDGsRBfcB0lQeOB_gA` or for PyCon use `UCMjMBMGt0WJQLeluw6qNJuA`.
+- `YT_CHANNEL`: the YouTube channel to use this on, to try it out with PyBites you can use `UCBn-uKDGsRBfcB0lQeOB_gA` or for PyCon use `UCMjMBMGt0WJQLeluw6qNJuA` (demo below).
 
 - `YOUTUBE_API_KEY`: the API key you just created.
 
@@ -33,13 +33,15 @@ Populate it with the following environment variables:
 
 Next let's cache the YouTube channel's data (all videos' metadata) to not exhaust the YouTube API rate limit.
 
-Run the following command with your virtual environment enabled (this example uses PyBites' YouTube channel):
+Run the following command with your virtual environment enabled (this example uses PyCon's YouTube channel):
 
 ```
 $ make dbsetup
 source venv/bin/activate && python -m youtube.db
-Total records: 33 (newly inserted: 33)
+Total records: 172 (newly inserted: 172)
 ```
+
+Result:
 
 ![importing YouTube video metadata](https://user-images.githubusercontent.com/387927/133118592-87d5b8d3-a87c-4be3-81f1-8457c0eb182c.mp4)
 
@@ -49,6 +51,6 @@ Lastly run the app:
 make run
 ```
 
-Navigate to [localhost:8000](http://localhost:8000/) - enjoy! :)
+Navigate to [localhost:8000](http://localhost:8000/) and you should see something like this:
 
 ![demoing result of infinite scroll](https://user-images.githubusercontent.com/387927/133118934-29655671-8d4e-4483-8a3e-cdffe0fabbd4.mp4)
