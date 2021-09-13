@@ -8,7 +8,7 @@ dbsetup:
 
 .PHONY: run
 run:
-	source venv/bin/activate && uvicorn main:app --reload
+	source venv/bin/activate && uvicorn yt.main:app --reload
 
 .PHONY: lint
 lint:
