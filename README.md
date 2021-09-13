@@ -1,6 +1,6 @@
 # YouTube infinite scroll
 
-This demo uses SQLModel and htmx to generate an infinite scroll of videos of a YouTube videos.
+This demo uses [SQLModel](https://sqlmodel.tiangolo.com/) and [htmx](https://htmx.org/) to generate an [infinite scroll](https://htmx.org/examples/infinite-scroll/) of videos of a YouTube videos.
 
 ## Setup
 
