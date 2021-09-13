@@ -41,6 +41,8 @@ source venv/bin/activate && python -m youtube.db
 Total records: 33 (newly inserted: 33)
 ```
 
+![importing YouTube video metadata](https://user-images.githubusercontent.com/387927/133118592-87d5b8d3-a87c-4be3-81f1-8457c0eb182c.mp4)
+
 Lastly run the app:
 
 ```
