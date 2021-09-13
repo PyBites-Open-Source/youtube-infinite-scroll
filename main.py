@@ -65,15 +65,11 @@ def home(request: Request):
         "content": content,
         "tr_with_next_row_get": tr_with_next_row_get,
     }
-    from pprint import pprint as pp
-
-    pp(context)
     return templates.TemplateResponse("index.html", context)
 
 
 @app.get("/videos/")
 def read_videos(offset: int = 0, limit: int = Query(default=100, lte=100)):
-    print("called", offset, limit)
     content = ""
     with Session(engine) as session:
         videos = session.exec(select(YouTube).offset(offset).limit(limit)).all()
@@ -85,5 +81,4 @@ def read_videos(offset: int = 0, limit: int = Query(default=100, lte=100)):
             )
             content = "\n".join(content)
 
-        print(content)
         return HTMLResponse(content=content, status_code=200)
