@@ -41,7 +41,7 @@ source venv/bin/activate && python -m youtube.db
 Total records: 33 (newly inserted: 33)
 ```
 
-![importing YouTube video metadata](assets/youtube-import.mp4)
+![importing YouTube video metadata](https://user-images.githubusercontent.com/387927/133118592-87d5b8d3-a87c-4be3-81f1-8457c0eb182c.mp4)
 
 Lastly run the app:
 
@@ -51,4 +51,4 @@ make run
 
 Navigate to [localhost:8000](http://localhost:8000/) - enjoy! :)
 
-![demoing result of infinite scroll](assets/inifnite-scroll.mp4)
+![demoing result of infinite scroll](https://user-images.githubusercontent.com/387927/133118934-29655671-8d4e-4483-8a3e-cdffe0fabbd4.mp4)
