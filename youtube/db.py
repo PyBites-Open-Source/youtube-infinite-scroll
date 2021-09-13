@@ -5,7 +5,7 @@ from dateutil.parser import parse
 from sqlmodel import Session, select
 import requests
 
-from youtube.models import YouTube, engine
+from youtube.models import YouTube, engine, create_db_and_tables
 
 load_dotenv()
 
@@ -75,5 +75,6 @@ def insert_youtube_videos(videos: list[dict]) -> None:
 
 
 if __name__ == "__main__":
+    create_db_and_tables()
     videos = get_videos_from_channel()
     insert_youtube_videos(videos)

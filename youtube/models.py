@@ -19,6 +19,15 @@ class YouTube(SQLModel, table=True):
     published: datetime
 
 
+class YouTubeRead(SQLModel):
+    id: int
+    video_id: str
+    title: str
+    description: str
+    thumb: str
+    published: datetime
+
+
 engine = create_engine(DATABASE_URL, echo=False)
 
 

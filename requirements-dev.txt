@@ -1,4 +1,7 @@
+-r requirements.txt
+uvicorn
 black
 flake8
 mypy
 pre-commit
+types-python-dateutil

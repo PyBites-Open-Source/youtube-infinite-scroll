@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Using htmx for infinite scroll of YT videos.">
+    <meta name="author" content="PyBites">
+    <title>YouTube infinite scroll</title>
+    <script src="https://unpkg.com/htmx.org@1.5.0" integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" crossorigin="anonymous"></script>
+    <link href="https://cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <style>
+      td {
+        border: 1px solid #f2f2f2 !important; border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mui-container">
+      <div class="mui-panel">
+        <h1>YouTube infinite scroll</h1>
+
+        <table class="mui-table" id="resultTable">
+          <thead>
+            <th>Video metadata</th>
+            <th>Click the thumb to play</th>
+          </thead>
+          <tbody>
+            {% for tds_html in content %}
+              {% if loop.last %}{{ tr_with_next_row_get|safe }}{% else %}<tr>{% endif %}
+                {{ tds_html|safe }}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+</body>
+</html>

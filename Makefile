@@ -1,18 +1,14 @@
-.PHONY: venv
-venv:
-	python3.9 -m venv venv
-
 .PHONY: install
 install:
-	pip install -r requirements-dev.txt
+	python3.9 -m venv venv && source venv/bin/activate && pip install -r requirements-dev.txt
 
 .PHONY: dbsetup
 dbsetup:
-	python -m youtube.models && python -m youtube.db
+	source venv/bin/activate && python -m youtube.db
 
 .PHONY: run
 run:
-	source venv/bin/activate && python -m youtube.main
+	source venv/bin/activate && uvicorn main:app --reload
 
 .PHONY: lint
 lint:
