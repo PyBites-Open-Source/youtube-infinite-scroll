@@ -50,3 +50,5 @@ make run
 ```
 
 Navigate to [localhost:8000](http://localhost:8000/) - enjoy! :)
+
+![demoing result of infinite scroll](https://user-images.githubusercontent.com/387927/133118934-29655671-8d4e-4483-8a3e-cdffe0fabbd4.mp4)
