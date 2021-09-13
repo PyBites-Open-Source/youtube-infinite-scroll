@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Request, Query
 from fastapi.responses import HTMLResponse
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -11,19 +10,12 @@ from youtube.db import engine
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 templates = Jinja2Templates(directory="templates")
 
+DOMAIN = "http://localhost:8000"
 YOUTUBE_BASE_URL = "https://youtu.be/"
 TR_CONTENT = """
-<tr hx-get="http://localhost:8000/videos/?offset={offset}&limit={limit}"
-  hx-trigger='revealed' hx-swap='afterend'>
+<tr hx-get='{domain}/videos/?offset={offset}&limit={limit}' hx-trigger='revealed' hx-swap='afterend'>
 """
 TR_INNER_HTML = """
 <td>
@@ -59,7 +51,7 @@ def home(request: Request):
     with Session(engine) as session:
         videos = session.exec(select(YouTube).offset(0).limit(10)).all()
     content = _get_video_content(videos)
-    tr_with_next_row_get = TR_CONTENT.format(offset=10, limit=10).strip()
+    tr_with_next_row_get = TR_CONTENT.format(domain=DOMAIN, offset=10, limit=10).strip()
     context = {
         "request": request,
         "content": content,
@@ -77,7 +69,8 @@ def read_videos(offset: int = 0, limit: int = Query(default=100, lte=100)):
             content = [f"<tr>{tds}</tr>" for tds in _get_video_content(videos)]
             # give the last tr element the htmx to enable infinite scroll
             content[-1] = content[-1].replace(
-                "<tr>", TR_CONTENT.format(offset=offset + limit, limit=limit)
+                "<tr>",
+                TR_CONTENT.format(domain=DOMAIN, offset=offset + limit, limit=limit),
             )
             content = "\n".join(content)
 
