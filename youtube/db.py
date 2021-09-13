@@ -2,20 +2,29 @@ import os
 
 from dotenv import load_dotenv
 from dateutil.parser import parse
-from sqlmodel import Session, select
+from sqlmodel import Session, select, SQLModel, create_engine
 import requests
 
-from youtube.models import YouTube, engine, create_db_and_tables
+from youtube.models import YouTube
 
 load_dotenv()
 
 YT_CHANNEL = os.environ["YT_CHANNEL"]
 YOUTUBE_API_KEY = os.environ["YOUTUBE_API_KEY"]
+DATABASE_URL = os.environ["DATABASE_URL"]
+
 YOUTUBE_VIDEO = "youtube#video"
 BASE_URL = (
     f"https://www.googleapis.com/youtube/v3/search?key={YOUTUBE_API_KEY}"
     f"&channelId={YT_CHANNEL}&part=snippet,id&order=date&maxResults=20"
 )
+
+
+engine = create_engine(DATABASE_URL, echo=False)
+
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
 
 
 def get_videos_from_channel(channel: str = YT_CHANNEL) -> list[dict]:
