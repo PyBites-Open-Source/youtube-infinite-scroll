@@ -1,7 +1,6 @@
 import re
 
 from fastapi.testclient import TestClient
-import pytest
 from requests.models import Response
 from sqlmodel import Session, select
 

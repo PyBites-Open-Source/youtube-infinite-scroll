@@ -38,8 +38,7 @@ def vcr_config():
     return {"filter_query_parameters": ["key"]}
 
 
-@pytest.mark.vcr
 @pytest.fixture(scope="module")
 def videos(vcr):
-    # with vcr.use_cassette("tests/cassettes/videos.yaml"):
-    return get_videos_from_channel(PYBITES_YOUTUBE_CHANNEL)
+    with vcr.use_cassette("tests/cassettes/videos.yaml"):
+        return get_videos_from_channel(PYBITES_YOUTUBE_CHANNEL)
