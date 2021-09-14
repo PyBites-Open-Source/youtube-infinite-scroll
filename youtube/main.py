@@ -69,11 +69,11 @@ def read_videos(
     content = ""
     videos = session.exec(select(YouTube).offset(offset).limit(limit)).all()
     if videos:
-        content = [f"<tr>{tds}</tr>" for tds in _get_video_content(videos)]
+        html = [f"<tr>{tds}</tr>" for tds in _get_video_content(videos)]
         # give the last tr element the htmx to enable infinite scroll
-        content[-1] = content[-1].replace(
+        html[-1] = html[-1].replace(
             "<tr>", TR_CONTENT.format(domain=DOMAIN, offset=offset + limit, limit=limit)
         )
-        content = "\n".join(content)
+        content = "\n".join(html)
 
     return HTMLResponse(content=content, status_code=200)
