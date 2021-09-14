@@ -5,17 +5,11 @@ import pytest
 from requests.models import Response
 from sqlmodel import Session, select
 
-from youtube.db import get_videos_from_channel, insert_youtube_videos
+from youtube.db import insert_youtube_videos
 from youtube.models import YouTube
 
 
-@pytest.mark.vcr
-def test_get_videos_from_channel_for_pybites():
-    """
-    Using cassettes we freeze PyBites' YT channel output this moment of time.
-    Unfortunately I could not get vcr working with fixtures so we need to repeat a bit of code in each test.
-    """
-    videos = get_videos_from_channel("UCBn-uKDGsRBfcB0lQeOB_gA")
+def test_get_videos_from_channel_for_pybites(videos):
     assert len(videos) == 33
     video_ids = [vid["id"]["videoId"] for vid in videos]
     expected_ids = [
@@ -56,8 +50,7 @@ def test_get_videos_from_channel_for_pybites():
     assert video_ids == expected_ids
 
 
-def test_insert_youtube_videos(capfd, session: Session):
-    videos = get_videos_from_channel("UCBn-uKDGsRBfcB0lQeOB_gA")
+def test_insert_youtube_videos(capfd, session: Session, videos):
     insert_youtube_videos(session, videos)
     output = capfd.readouterr()[0].strip()
     assert output == "Total records: 33 (newly inserted: 33)"
@@ -98,8 +91,7 @@ def _parse_titles(response: Response) -> list[str]:
     return re.findall("<h2.*?>(.*?)</h2>", response.content.decode("utf-8"))
 
 
-def test_read_more_videos(session: Session, client: TestClient):
-    get_videos_from_channel("UCBn-uKDGsRBfcB0lQeOB_gA")
+def test_read_more_videos(session: Session, client: TestClient, videos):
     response = client.get("/videos?offset=10&limit=10")
     html_result = _parse_titles(response)
     expected = [

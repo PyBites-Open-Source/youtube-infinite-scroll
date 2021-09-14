@@ -3,7 +3,10 @@ from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 import pytest
 
+from youtube.db import get_videos_from_channel
 from youtube.main import app, get_session
+
+PYBITES_YOUTUBE_CHANNEL = "UCBn-uKDGsRBfcB0lQeOB_gA"
 
 
 @pytest.fixture(scope="session", name="session")
@@ -33,3 +36,10 @@ def client_fixture(session: Session):
 @pytest.fixture(scope="module")
 def vcr_config():
     return {"filter_query_parameters": ["key"]}
+
+
+@pytest.fixture(scope="module")
+@pytest.mark.vcr
+def videos(vcr):
+    # with vcr.use_cassette("tests/cassettes/videos.yaml"):
+    return get_videos_from_channel(PYBITES_YOUTUBE_CHANNEL)
