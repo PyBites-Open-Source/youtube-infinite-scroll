@@ -15,8 +15,8 @@ DATABASE_URL = os.environ["DATABASE_URL"]
 
 YOUTUBE_VIDEO = "youtube#video"
 BASE_URL = (
-    f"https://www.googleapis.com/youtube/v3/search?key={YOUTUBE_API_KEY}"
-    f"&channelId={YT_CHANNEL}&part=snippet,id&order=date&maxResults=20"
+    "https://www.googleapis.com/youtube/v3/search?key={key}"
+    "&channelId={channel}&part=snippet,id&order=date&maxResults=20"
 )
 
 
@@ -33,11 +33,13 @@ def create_db_and_tables():
 
 
 def get_videos_from_channel(channel: str = YT_CHANNEL) -> list[dict]:
+    base_url = BASE_URL.format(key=YOUTUBE_API_KEY,
+                               channel=channel)
+    next_page, url = None, base_url
     videos = []
-    next_page, url = None, BASE_URL
     while True:
         if next_page is not None:
-            url = BASE_URL + f"&pageToken={next_page}"
+            url = base_url + f"&pageToken={next_page}"
 
         response = requests.get(url).json()
 
