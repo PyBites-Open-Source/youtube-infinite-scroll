@@ -1,6 +1,5 @@
 from fastapi import Depends, FastAPI, Request, Query
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from sqlmodel import select, Session
@@ -9,7 +8,6 @@ from youtube.models import YouTube
 from youtube.db import get_session
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 DOMAIN = "http://localhost:8000"
