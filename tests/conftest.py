@@ -40,5 +40,9 @@ def vcr_config():
 
 @pytest.fixture(scope="module")
 def videos(vcr):
+    """
+    Using stacked decorator did not work, so used context manager
+    instead, see https://github.com/ktosiek/pytest-vcr/issues/23
+    """
     with vcr.use_cassette("tests/cassettes/videos.yaml"):
         return get_videos_from_channel(PYBITES_YOUTUBE_CHANNEL)
