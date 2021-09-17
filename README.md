@@ -63,19 +63,8 @@ There are unit and functional tests for this project.
 
 The unit tests use "cassettes" (cached API responses) so they are fast:
 
-```
-$ make unit
-pytest -k unit
-================================================================================ test session starts =================================================================================
-platform darwin -- Python 3.9.5, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
-rootdir: /Users/bbelderbos/code/youtube-infinite-scroll, configfile: pytest.ini
-plugins: cov-2.12.1, vcr-1.0.2
-collected 5 items / 1 deselected / 4 selected
-
-tests/unit/test_app.py ....                                                                                                                                                    [100%]
-
-========================================================================== 4 passed, 1 deselected in 0.26s ===========================================================================
-```
+<video src="https://www.dropbox.com/s/763t4zjfzbjfqn9/yi-infinite-scroll-unit-test.mp4?dl=0" controls="controls" style="max-width: 730px;">
+</video>
 
 The functional (end-to-end) test uses the real DB that is configured in `.env` and Selenium to scroll to the bottom of the infinite scroll, then compare the amount of table rows on the page vs the amount of entries in the DB. This test requires FastAPI to be running.
 
@@ -85,20 +74,9 @@ So in terminal 1 run:
 make run
 ```
 
-Then in terminal 2 run the test (this will open a Selenium Chrome browser window):
+Then in terminal 2 run the test:
 
-```
-$ make functional
-pytest -k functional
-================================================================================ test session starts =================================================================================
-platform darwin -- Python 3.9.5, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
-rootdir: /Users/bbelderbos/code/youtube-infinite-scroll, configfile: pytest.ini
-plugins: cov-2.12.1, vcr-1.0.2
-collected 5 items / 4 deselected / 1 selected
-
-tests/functional/test_e2e.py .                                                                                                                                                 [100%]
-
-========================================================================== 1 passed, 4 deselected in 14.61s ==========================================================================
-```
+<video src="https://www.dropbox.com/sh/x9al60o8nl5mx8x/AABKKXnJyW1FwTbHG6tAWZDwa?dl=0" controls="controls" style="max-width: 730px;">
+</video>
 
 Of course you can also run all tests in one go with `make test`.
