@@ -63,7 +63,7 @@ There are unit and functional tests for this project.
 
 The unit tests use "cassettes" (cached API responses) so they are fast:
 
-<video src="https://www.dropbox.com/s/763t4zjfzbjfqn9/yi-infinite-scroll-unit-test.mp4?dl=0" controls="controls" style="max-width: 730px;">
+<video src="https://www.dropbox.com/s/763t4zjfzbjfqn9/yi-infinite-scroll-unit-test.mp4" controls="controls" style="max-width: 730px;">
 </video>
 
 The functional (end-to-end) test uses the real DB that is configured in `.env` and Selenium to scroll to the bottom of the infinite scroll, then compare the amount of table rows on the page vs the amount of entries in the DB. This test requires FastAPI to be running.
@@ -76,7 +76,7 @@ make run
 
 Then in terminal 2 run the test:
 
-<video src="https://www.dropbox.com/sh/x9al60o8nl5mx8x/AABKKXnJyW1FwTbHG6tAWZDwa?dl=0" controls="controls" style="max-width: 730px;">
+<video src="https://www.dropbox.com/s/nofhtcqyo2epx1f/yi-infinite-scroll-functional-test.cmproj.mp4" controls="controls" style="max-width: 730px;">
 </video>
 
 Of course you can also run all tests in one go with `make test`.
