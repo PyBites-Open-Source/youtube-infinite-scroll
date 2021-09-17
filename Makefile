@@ -22,6 +22,14 @@ typing:
 test:
 	pytest
 
+.PHONY: unit
+unit:
+	pytest -k unit
+
+.PHONY: functional
+functional:
+	pytest -k functional
+
 .PHONY: coverage
 coverage:
 	pytest --cov=youtube --cov-report term-missing

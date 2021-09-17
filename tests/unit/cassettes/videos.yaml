@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-requests/2.26.0
     method: GET
-    uri: https://www.googleapis.com/youtube/v3/search?channelId=UCBn-uKDGsRBfcB0lQeOB_gA&maxResults=20&order=date&part=snippet%2Cid
+    uri: https://www.googleapis.com/youtube/v3/search?key=DUMMY&channelId=UCBn-uKDGsRBfcB0lQeOB_gA&maxResults=20&order=date&part=snippet%2Cid
   response:
     body:
       string: !!binary |
@@ -95,7 +95,7 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 14 Sep 2021 11:32:14 GMT
+      - Mon, 13 Sep 2021 20:37:24 GMT
       Server:
       - scaffolding on HTTPServer2
       Transfer-Encoding:
@@ -125,7 +125,7 @@ interactions:
       User-Agent:
       - python-requests/2.26.0
     method: GET
-    uri: https://www.googleapis.com/youtube/v3/search?channelId=UCBn-uKDGsRBfcB0lQeOB_gA&maxResults=20&order=date&pageToken=CBQQAA&part=snippet%2Cid
+    uri: https://www.googleapis.com/youtube/v3/search?key=DUMMY&channelId=UCBn-uKDGsRBfcB0lQeOB_gA&maxResults=20&order=date&pageToken=CBQQAA&part=snippet%2Cid
   response:
     body:
       string: !!binary |
@@ -193,7 +193,7 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Tue, 14 Sep 2021 11:32:14 GMT
+      - Mon, 13 Sep 2021 20:37:25 GMT
       Server:
       - scaffolding on HTTPServer2
       Transfer-Encoding:

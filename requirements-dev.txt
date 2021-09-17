@@ -7,5 +7,6 @@ pre-commit
 pytest
 pytest-vcr
 pytest-cov
+selenium
 types-python-dateutil
 types-requests
