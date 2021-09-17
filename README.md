@@ -43,7 +43,8 @@ Total records: 172 (newly inserted: 172)
 
 Result:
 
-![importing YouTube video metadata](https://user-images.githubusercontent.com/387927/133118592-87d5b8d3-a87c-4be3-81f1-8457c0eb182c.mp4)
+<video src="https://user-images.githubusercontent.com/387927/133118592-87d5b8d3-a87c-4be3-81f1-8457c0eb182c.mp4" controls="controls" style="max-width: 730px;">
+</video>
 
 Lastly run the app:
 
