@@ -30,9 +30,10 @@ def scroll_to_end(driver):
     i = 0
 
     while True:
-        webdriver.ActionChains(driver).send_keys(Keys.PAGE_DOWN).perform()
+        last_element = driver.find_elements_by_class_name("mui--text-subhead")[-1]
+        actions = webdriver.ActionChains(driver)
+        actions.move_to_element(last_element).perform()
         i += 1
-        sleep(0.25)
 
         num_rows.append(len(driver.find_elements_by_tag_name("tr")))
 
